@@ -39,7 +39,6 @@ public class XSLT_FO_Utilities {
 			
 			String tempStr = thisUri.toString() + filename;
 			URI returnURI = new URI(tempStr);
-			System.out.println("URI: " +returnURI );
 			return returnURI;		}catch(Exception exp)
 		{
 			System.out.println("Exception with the URI: " + exp);
@@ -274,9 +273,9 @@ public class XSLT_FO_Utilities {
               while(e.hasMoreElements())
               {
                   String thisKey = (String) e.nextElement();
-                  System.out.println(thisKey);
+                  //System.out.println(thisKey);
                   transformer.setParameter(thisKey, parametersToAdd.get(thisKey).toString());
-                  System.out.println("Parameters added: -" + thisKey+ "-, value: -" +parametersToAdd.get(thisKey)+ "-" );
+                  //System.out.println("Parameters added: -" + thisKey+ "-, value: -" +parametersToAdd.get(thisKey)+ "-" );
               }
               // Step 5: Setup input and output for XSLT transformation
               // Setup input stream
@@ -325,17 +324,11 @@ public class XSLT_FO_Utilities {
             Source xmlSource = new StreamSource(xmlFile);
             Source xsltSource = new StreamSource(xslFile);
 
-            if(debug)System.out.println("Finding files...");
             // the factory pattern supports different XSLT processors
             TransformerFactory transFact = TransformerFactory.newInstance();
 
             Transformer trans;
-            if(debug)
-				{
-					
-					System.out.println("Transforming xml files..." + xmlFile);
-					System.out.println("Transforming with xslt files..." + xsltSource);
-				}
+            
             trans = transFact.newTransformer(xsltSource);
 
             // ----------------------------------------------------------
@@ -344,9 +337,7 @@ public class XSLT_FO_Utilities {
             // ----------------------------------------------------------
 				
             StringWriter output = new StringWriter();
-				System.out.println("1 output of transformation" + output);
             trans.transform(xmlSource, new StreamResult(output));
-				System.out.println("2 output of transformation" + output);
 
             return output.toString();
 
